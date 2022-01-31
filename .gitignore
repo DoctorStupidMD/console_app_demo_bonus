@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Programme-generated files
+/console_app_demo/files/XmlToJsonResult.json
+/console_app_demo/files/JsonToXmlResult.xml
+
 # User-specific files
 *.rsuser
 *.suo
