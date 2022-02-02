@@ -1,4 +1,5 @@
 ﻿using AppMethodsNamespace;
+using ConversionMethodsNamespace;
 
 namespace MainMenuNamespace;
 
@@ -6,7 +7,7 @@ public class MainMenuClass
 {
     public static void MainMenu()
     {
-        AppMethods converters = new AppMethods();
+        AppMethodsClass appMethodsClass = new AppMethodsClass();
 
         Console.Clear();
         Console.WriteLine("Welcome! Please choose an option below:");
@@ -22,19 +23,19 @@ public class MainMenuClass
         switch (cki.Key)
         {
             case ConsoleKey.D1:
-                converters.XmlToJsonConversion();
+                ConversionMethodsClass.XmlToJsonConversion();
                 break;
             case ConsoleKey.D2:
-                converters.JsonToXmlConversion();
+                ConversionMethodsClass.JsonToXmlConversion();
                 break;
             case ConsoleKey.D3:
-                converters.WrongTurn();
+                appMethodsClass.WrongTurn();
                 break;
             case ConsoleKey.Escape:
-                converters.EscapeApp();
+                appMethodsClass.EscapeApp();
                 break;
             default:
-                converters.NoOptionsSelected();
+                appMethodsClass.NoOptionsSelected();
                 break;
         }
     }

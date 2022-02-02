@@ -1,81 +1,15 @@
-﻿using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Linq;
-using MainMenuNamespace;
+﻿using MainMenuNamespace;
+using ConversionMethodsNamespace;
 
 namespace AppMethodsNamespace;
 
-public class AppMethods
+public class AppMethodsClass
 {
-    static string? filePath;
-
-    public void XmlToJsonConversion()
+    private enum SleepyTime
     {
-        Console.WriteLine("Please input the absolute path to your XML file and press ENTER so I can automagically convert it:");
-        filePath = Console.ReadLine();
-
-        NoFilePathHandler();
-
-        XmlDocument importXmlDoc = new();
-
-        try
-        {
-            importXmlDoc.Load(filePath);
-            Console.Clear();
-            Console.WriteLine("I found your XML file! Beep boop...");
-
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string jsonFilePath = Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\XmlToJsonResult.json");
-            string jsonFormattedText = JsonConvert.SerializeXmlNode(importXmlDoc, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(jsonFilePath, jsonFormattedText);
-
-            SuccessMessage("JSON");
-        }
-        catch (Exception exception)
-        {
-            if (exception is FileNotFoundException || exception is XmlException || Path.GetExtension(filePath) != ".xml")
-            {
-                Console.Clear();
-                Console.WriteLine("XML file is either corrupted or not found at this location, bummer!");
-                NoFileFoundReturnToMain();
-            }
-        }
-
-        Environment.Exit(0);
-    }
-
-    public void JsonToXmlConversion()
-    {
-        Console.WriteLine("Please input the absolute path to your JSON file and press ENTER so I can automagically convert it:");
-        filePath = Console.ReadLine();
-
-        NoFilePathHandler();
-
-        try
-        {
-            string importJsonDoc = File.ReadAllText(filePath);
-            Console.Clear();
-            Console.WriteLine("I found your JSON file! Beep boop...");
-
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string xmlFilePath = Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\JsonToXmlResult.xml");
-            XNode xmlDeserializedText = JsonConvert.DeserializeXNode(importJsonDoc, "Root");
-            if (xmlDeserializedText is not null)
-            {
-                File.WriteAllText(xmlFilePath, xmlDeserializedText.ToString());
-            }
-
-            SuccessMessage("XML");
-        }
-        catch (Exception exception)
-        {
-            if (exception is FileNotFoundException || exception is JsonException || Path.GetExtension(filePath) != ".json")
-                Console.Clear();
-            Console.WriteLine("JSON file is either corrupted or not found at this location, drag!");
-            NoFileFoundReturnToMain();
-        }
-
-        Environment.Exit(0);
+        Small = 1000,
+        Medium = 2000,
+        Large = 3000
     }
 
     public void WrongTurn()
@@ -90,14 +24,12 @@ public class AppMethods
         Environment.Exit(0);
     }
 
-    public void NoFilePathHandler()
+    public static void NoFilePathHandler()
     {
-        MainMenuClass mainMenuClass = new MainMenuClass();
-
-        if (filePath == null || filePath == "")
+        if (ConversionMethodsClass.filePath == null || ConversionMethodsClass.filePath == "")
         {
             Console.WriteLine("Oops, perhaps you got trigger happy with that Enter button?");
-            Thread.Sleep(1000);
+            Thread.Sleep((int)SleepyTime.Small);
             Console.WriteLine("Returning to the Main Menu...");
             Thread.Sleep(2000);
             MainMenuClass.MainMenu();
@@ -107,21 +39,21 @@ public class AppMethods
     public void NoOptionsSelected()
     {
         Console.WriteLine("That wasn't one of the menu options. Please select 1, 2 or 3 from the above menu.");
-        Thread.Sleep(2000);
+        Thread.Sleep((int)SleepyTime.Medium);
         Console.Clear();
         MainMenuClass.MainMenu();
     }
-    public void NoFileFoundReturnToMain()
+    public static void NoFileFoundReturnToMain()
     {
-        Thread.Sleep(2000);
+        Thread.Sleep((int)SleepyTime.Medium);
         Console.WriteLine("Pobody's nerfect, let's try this again...");
-        Thread.Sleep(2000);
+        Thread.Sleep((int)SleepyTime.Medium);
         MainMenuClass.MainMenu();
     }
 
-    public string SuccessMessage(string formatType)
+    public static string SuccessMessage(string formatType)
     {
-        Thread.Sleep(3000);
+        Thread.Sleep((int)SleepyTime.Large);
         Console.Clear();
         Console.WriteLine($"Your file has been successfully converted and preserved in {formatType} format.");
         Console.WriteLine("Please close this console and navigate to the files directory in the repo to retrieve your new file.");
