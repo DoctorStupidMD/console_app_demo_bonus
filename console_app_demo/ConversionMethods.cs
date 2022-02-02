@@ -64,7 +64,7 @@ class ConversionMethodsClass
 
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 string xmlFilePath = Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\JsonToXmlResult.xml");
-                XNode xmlDeserializedText = JsonConvert.DeserializeXNode(importJsonDoc, "Root");
+                XNode? xmlDeserializedText = JsonConvert.DeserializeXNode(importJsonDoc, "Root");
 
                 if (xmlDeserializedText is not null)
                 {
