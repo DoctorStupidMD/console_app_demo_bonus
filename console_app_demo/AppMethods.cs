@@ -45,13 +45,39 @@ public class AppMethodsClass
         MainMenuClass.MainMenu();
     }
 
-    public static string SuccessMessage(string formatType)
+    public static void SuccessMessage(string formatType)
     {
         Thread.Sleep((int)UtilsClass.SleepyTime.Large);
         Console.Clear();
+        GreatSuccessArt();
+        Thread.Sleep((int)UtilsClass.SleepyTime.Small);
         Console.WriteLine($"Your file has been successfully converted and preserved in {formatType} format.");
         Console.WriteLine("Please close this console and navigate to the files directory in the repo to retrieve your new file.");
         Console.WriteLine("Have a lovely day!");
-        return string.Empty;
+        Environment.Exit(0);
+    }
+
+    public static void GreatSuccessArt()
+    {
+        string title = @"
+          /$$$$$$                                  /$$    
+         /$$__  $$                                | $$    
+        | $$  \__/  /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$  
+        | $$ /$$$$ /$$__  $$ /$$__  $$ |____  $$|_  $$_/  
+        | $$|_  $$| $$  \__/| $$$$$$$$  /$$$$$$$  | $$    
+        | $$  \ $$| $$      | $$_____/ /$$__  $$  | $$ /$$
+        |  $$$$$$/| $$      |  $$$$$$$|  $$$$$$$  |  $$$$/
+         \______/ |__/       \_______/ \_______/   \___/  
+ 
+          /$$$$$$                                                            
+         /$$__  $$                                                           
+        | $$  \__/ /$$   /$$  /$$$$$$$  /$$$$$$$  /$$$$$$   /$$$$$$$ /$$$$$$$
+        |  $$$$$$ | $$  | $$ /$$_____/ /$$_____/ /$$__  $$ /$$_____//$$_____/
+         \____  $$| $$  | $$| $$      | $$      | $$$$$$$$|  $$$$$$|  $$$$$$ 
+         /$$  \ $$| $$  | $$| $$      | $$      | $$_____/ \____  $$\____  $$
+        |  $$$$$$/|  $$$$$$/|  $$$$$$$|  $$$$$$$|  $$$$$$$ /$$$$$$$//$$$$$$$/
+         \______/  \______/  \_______/ \_______/ \_______/|_______/|_______/ 
+        ";
+        Console.WriteLine(title);
     }
 }

@@ -20,7 +20,10 @@ class ConversionMethodsClass
 
         try
         {
-            importXmlDoc.Load(filePath);
+            if (filePath is not null)
+            {
+                importXmlDoc.Load(filePath);
+            }
             Console.Clear();
             Console.WriteLine("I found your XML file! Beep boop...");
 
@@ -53,18 +56,22 @@ class ConversionMethodsClass
 
         try
         {
-            string importJsonDoc = File.ReadAllText(filePath);
-            Console.Clear();
-            Console.WriteLine("I found your JSON file! Beep boop...");
-
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string xmlFilePath = Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\JsonToXmlResult.xml");
-            XNode xmlDeserializedText = JsonConvert.DeserializeXNode(importJsonDoc, "Root");
-            if (xmlDeserializedText is not null)
+            if (filePath is not null) 
             {
-                File.WriteAllText(xmlFilePath, xmlDeserializedText.ToString());
-            }
+                string importJsonDoc = File.ReadAllText(filePath);
+                Console.Clear();
+                Console.WriteLine("I found your JSON file! Beep boop...");
 
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string xmlFilePath = Path.Combine(baseDir, $@"..\..\..\..\console_app_demo\files\JsonToXmlResult.xml");
+                XNode xmlDeserializedText = JsonConvert.DeserializeXNode(importJsonDoc, "Root");
+
+                if (xmlDeserializedText is not null)
+                {
+                    File.WriteAllText(xmlFilePath, xmlDeserializedText.ToString());
+                }
+            }
+            
             AppMethodsClass.SuccessMessage("XML");
         }
         catch (Exception exception)
